@@ -45,3 +45,7 @@ spec:
           periodSeconds: 120
         resources: {}
       serviceAccountName: {{ include "cluster-secret.fullname" . }}-account
+      {{- if and .Values.clustersecret.nodeSelector (not (empty .Values.clustersecret.nodeSelector)) }}
+      nodeSelector:
+        {{- toYaml .Values.clustersecret.nodeSelector | nindent 8 }}
+      {{- end }}
